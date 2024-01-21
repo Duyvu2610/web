@@ -1,0 +1,36 @@
+@charset "ISO-8859-1";
+
+.header {
+	position: fixed;
+	width: 100%;
+}
+
+.logo-title {
+	color: #222529;
+	font-weight: 700;
+}
+
+.header__nav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+
+}
+
+.header__nav ul {
+	gap: 10px;
+}
+
+.header__nav-currency {
+	font-weight: 700;
+	font-size: 14px;
+	color: #84878B;
+}
+
+.my_hidden {
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+	/* Điều này thêm hiệu ứng mất mờ dần trong 0.5 giây */
+	display: none;
+}
