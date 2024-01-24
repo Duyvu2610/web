@@ -30,15 +30,18 @@ public class VendorController extends HttpServlet {
         Integer id = null;
         if (session.getAttribute("airlineId") != null) {
             id = Integer.parseInt(session.getAttribute("airlineId").toString());
-            int totalPage = flightService.selectFlightByAirlineId(id).size() / 10 + 1;
+            // lay so luong trang
+            int totalPage =(int) Math.ceil(((double) flightService.selectFlightByAirlineId(id).size() / 10));
 
             String pageParam = request.getParameter("page");
+            // mac dinh moi vao la trang 1, con khong thi lay gia tri page
             int page = pageParam != null ? Integer.parseInt(pageParam) : 1;
             
             request.setAttribute("totalHour", flightService.calculateTotalFlightDuration(id));
             request.setAttribute("airports", airportService.getAll());
             request.setAttribute("randomCode", flightService.randomFlightCode());
             request.setAttribute("airline", airlineService.getById(id));
+            // nhan danh sach chuyen bay theo trang
             request.setAttribute("flightVendor", flightService.getFlightsByPage(page, id));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPage", totalPage);
@@ -52,5 +55,10 @@ public class VendorController extends HttpServlet {
             session.setAttribute("add", null);
         }
         request.getRequestDispatcher("./jsp/vendor.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }

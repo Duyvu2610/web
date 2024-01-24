@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("userDetail", ud);
 
 			request.setAttribute("status", "true");
-			if (user.roleId() > 1) {
+			if (user.roleId() > 0) {
 				session.setAttribute("airlineId", user.roleId());
 				response.sendRedirect("/BookTickets_war_exploded/vendor");
 			}else{

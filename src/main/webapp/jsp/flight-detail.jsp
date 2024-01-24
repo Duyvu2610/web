@@ -157,15 +157,6 @@
 				</div>
 			</div>
 			<div class="md:flex md:gap-8">
-<%--				<div class="mb-6">--%>
-<%--					<label for="countries"--%>
-<%--						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">${gender }</label>--%>
-<%--					<select id="countries"--%>
-<%--						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:w-48">--%>
-<%--						<option value="nu">${userDetail == null ? "":userDetail().gender()}</option>--%>
-<%--					</select>--%>
-<%--				</div>--%>
-
 			</div>
 
 		</div>

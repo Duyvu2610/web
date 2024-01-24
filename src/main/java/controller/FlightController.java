@@ -29,6 +29,11 @@ public class FlightController extends HttpServlet {
         super();
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("vendor");
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String departure = request.getParameter("departure");
@@ -54,24 +59,22 @@ public class FlightController extends HttpServlet {
             boolean doUpdate = flightService.updateFlight(id, departureEdit, destinationEdit, toTimestamp(departure_dateEdit), toTimestamp(arrival_dateEdit),
                                 Double.parseDouble(priceEdit), Integer.parseInt(num_seatEdit));
             if (doUpdate) {
-                session.setAttribute("update", true);
+                request.setAttribute("update", true);
             } else {
-                session.setAttribute("update", false);
+                request.setAttribute("update", false);
             }
-            session.setAttribute("add", null);
-            response.sendRedirect("vendor");
+            request.getRequestDispatcher("/vendor").forward(request, response);
             return;
         }
         
         boolean doAdd = flightService.insert(departure, destination, toTimestamp(departure_date), toTimestamp(arrival_date),
                 Double.parseDouble(price),Integer.parseInt(session.getAttribute("airlineId").toString()), Integer.parseInt(num_seat), flight_code);
         if (doAdd) {
-            session.setAttribute("add", true);
+            request.setAttribute("add", true);
         } else {
-            session.setAttribute("add", false);
+            request.setAttribute("add", false);
         }
-        session.setAttribute("update", null);
-        response.sendRedirect("vendor");
+        request.getRequestDispatcher("/vendor").forward(request, response);
     }
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

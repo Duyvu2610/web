@@ -258,7 +258,6 @@
 			</div>
 		</div>
 		<!-- content -->
-
 		<c:choose>
 			<c:when test="${empty flights}">
 				<p class="text-center text-gray-500 mt-8">No flights available.</p>

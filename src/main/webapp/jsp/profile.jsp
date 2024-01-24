@@ -62,29 +62,29 @@
                             hover:file:bg-violet-100"
                             name="avatar"
                                id="avatar"
-                               required
                         />
+                        <input type="submit" value="Upload" />
                     </label>
                 </div>
                 <div class="p-2">
                     <h3 class="text-center text-xl text-gray-900 font-medium leading-8">${userDetail == null ? "":userDetail.name()}</h3>
                     <table class="text-xs my-3">
                         <tbody><tr>
-                            <td class="px-2 py-2 text-gray-500 font-semibold">Address</td>
+                            <td class="px-2 py-2 text-gray-500 font-semibold">${address}</td>
                             <td class="px-2 py-2">${userDetail == null ? "":userDetail.address()}</td>
                         </tr>
                         <tr>
-                            <td class="px-2 py-2 text-gray-500 font-semibold">Phone</td>
+                            <td class="px-2 py-2 text-gray-500 font-semibold">${phone}</td>
                             <td class="px-2 py-2">${userDetail == null ? "":userDetail.phone()}</td>
                         </tr>
                         <tr>
-                            <td class="px-2 py-2 text-gray-500 font-semibold">Email</td>
+                            <td class="px-2 py-2 text-gray-500 font-semibold">${email}</td>
                             <td class="px-2 py-2">${userDetail == null ? "":userDetail.userEmail()}</td>
                         </tr>
                     </tbody></table>
         
                     <div class="text-center my-3">
-                        <a class="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium" href="#">View Profile</a>
+                        <a class="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium" href="#">${profile}</a>
                     </div>
         
                 </div>
@@ -92,36 +92,17 @@
         </div>
         </div>
         <div class="w-[70%]" >
-            <h2 class="font-bold text-3xl pb-8 border-b">My Profile</h2>
-            <div class="bg-white rounded-lg shadow px-4 py-6 my-8">
-              <p>Get the best out of  TripGuide by adding the remaining details!</p>
-              <div class="flex gap-4 mt-4">
-                <div class="rounded-full bg-[#E7ECF3] flex justify-center items-center px-3 py-1 gap-2">
-                  <img src="./images/Vector.png" alt="">
-                  <p>Verified Email ID
-                  </p>
-                </div>
-                  <div class="rounded-full bg-[#E7ECF3] flex justify-center items-center px-3 py-1 gap-2">
-                      <img src="./images/Vector.png" alt="">
-                      <p>Verified mobile Number
-                      </p>
-                  </div>
-                  <div class="rounded-full bg-[#E7ECF3] flex justify-center items-center px-3 py-1 gap-2">
-                      <img src="./images/Vector.png" alt="">
-                      <p>Complete Basic Info
-                      </p>
-                  </div>
-              </div>
-            </div>
+            <h2 class="font-bold text-3xl pb-8 border-b">${profile}</h2>
+
             <div class="flex justify-between items-center my-4">
-                <p class="text-xl font-semibold">Hi, I'm ${userDetail == null ? "":userDetail.name()}</p>
-                <button class="rounded-full px-4 py-2 border hover:bg-gray-200" type="submit" id="submitButton">Save My Data</button>
+                <p class="text-xl font-semibold">${hello} ${userDetail == null ? "":userDetail.name()}</p>
+                <button class="rounded-full px-4 py-2 border hover:bg-gray-200" type="submit" id="submitButton">${save}</button>
             </div>
             <div class="flex gap-8">
                 <div class="w-[50%]">
                     <div class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2 relative">
-                            <label for="name" class="text-sm font-medium text-[#6F717E]">Name</label>
+                            <label for="name" class="text-sm font-medium text-[#6F717E]">${name}</label>
                             <input type="text" name="name" id="name" class="text-[#3B3E44] text-sm border border-gray-300 rounded-lg p-2 py-3 bg-transparent pl-10"
                                 value="${userDetail == null ? '' : userDetail.name()}">
                             <img src="./icons/home.svg" alt="home icon" class="w-5 h-5 absolute top-[42px] left-[13px]">
@@ -131,7 +112,7 @@
                 <div class="w-[50%]">
                     <div class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2 relative">
-                            <label for="address" class="text-sm font-medium text-[#6F717E]">Street Address</label>
+                            <label for="address" class="text-sm font-medium text-[#6F717E]">${address}</label>
                             <input type="text" name="address" id="address" class="text-[#3B3E44] text-sm border border-gray-300 rounded-lg p-2 py-3 bg-transparent pl-10"
                                    value="${userDetail == null ? '' : userDetail.address()}">
                             <img src="./icons/home.svg" alt="home icon" class="w-5 h-5 absolute top-[42px] left-[13px]">
@@ -142,7 +123,7 @@
             <div class="my-8">
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2 relative">
-                        <label for="phone" class="text-sm font-medium text-[#6F717E]">Phone</label>
+                        <label for="phone" class="text-sm font-medium text-[#6F717E]">${phone}</label>
                         <input type="text" name="phone" id="phone" class="text-[#3B3E44] text-sm border border-gray-300 rounded-lg p-2 py-3 bg-transparent pl-10"
                                value="${userDetail == null ? '' : userDetail.phone()}">
                         <img src="./icons/email.svg" alt="home icon" class="w-5 h-5 absolute top-[42px] left-[13px]">
@@ -153,7 +134,7 @@
                 <div class="w-[50%]">
                     <div class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2 relative">
-                            <label for="dob" class="text-sm font-medium text-[#6F717E]">Date Of Birth</label>
+                            <label for="dob" class="text-sm font-medium text-[#6F717E]">${dob}</label>
                             <input type="date" name="dob" id="dob" class="text-[#3B3E44] text-sm border border-gray-300 rounded-lg p-2 py-3 bg-transparent pl-10"
                                 value="${userDetail.dob()}" placeholder="dd-mm-yyyy"/>
                             <img src="./icons/birth.svg" alt="home icon" class="w-5 h-5 absolute top-[42px] left-[13px]">
@@ -163,7 +144,7 @@
                 <div class="w-[50%]">
                     <div class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2 relative">
-                            <label for="gender" class="text-sm font-medium text-[#6F717E]">Gender</label>
+                            <label for="gender" class="text-sm font-medium text-[#6F717E]">${gender}</label>
                             <input type="text" name="gender" id="gender" class="text-[#3B3E44] text-sm border border-gray-300 rounded-lg p-2 py-3 bg-transparent pl-10"
                                    value="${userDetail == null ? '' : userDetail.gender()}">
                             <img src="./icons/gender.svg" alt="home icon" class="w-5 h-5 absolute top-[42px] left-[13px]">

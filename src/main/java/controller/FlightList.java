@@ -38,9 +38,11 @@ public class FlightList extends HttpServlet {
 		HttpSession sess = request.getSession();
 		String filter = request.getParameter("filter");
 		String id = request.getParameter("id");
-		
+		// khi click vaof chuyen bay cu the
 		if (id != null) {
+			// lay chuyen bay vua click dc
 			Flight flight = flightService.getById(Integer.parseInt(id));
+			// luu f vao session
 			sess.setAttribute("flight", flight);
 			City departureCity = cityService.getByAirportId(flight.departureId());
 			City destinationCity = cityService.getByAirportId(flight.destinationId());
