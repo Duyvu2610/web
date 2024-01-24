@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<div class="px-4 py-6 mt-[88px] md:w-[800px] md:ml-36">
+<div class="px-4 py-6 mt-[88px] md:w-[800px] md:ml-36 mb-[150px]">
 
 	<div class="md:w-[70%]">
 		<p class="pb-4 border-b font-bold text-lg md:text-2xl md:pb-8">${confirmYourBook }</p>
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<div
-		class="rounded-xl border px-4 py-6 md:absolute md:w-[335px] md:top-52 bg-white md:right-24">
+		class="rounded-xl border px-4 py-6 md:absolute md:w-[335px] md:top-32 bg-white md:right-24">
 		<div class="flex items-center">
 			<p class="font-bold text-lg">${flight.departureId() }</p>
 			<svg xmlns="http://www.w3.org/2000/svg" width="130" height="29"
@@ -107,17 +107,30 @@
 	</div>
 	<div>
 		<p class="pb-4 font-bold text-lg py-4">${creditCard }</p>
-		<div class="flex border-b pb-4 gap-4 mb-4 w-fit">
-			<div class="border rounded-xl relative px-5 py-2">
-				<img alt="master" src="./images/master-card.png">
-			</div>
-			<div class="border rounded-xl relative px-5 py-2 items-center flex">
-				<img alt="master" src="./images/visa.png">
-			</div>
-		</div>
-		<!-- credit -->
-		<!-- component -->
-		<div class="flex justify-center items-center">
+		<form action="confirm?status=true" method="post">
+			<ul class="grid w-full gap-6 md:grid-cols-3 mb-6 w-1/2">
+				<li>
+					<input type="radio" id="cod" name="payment" value="cod" class="hidden peer" required>
+					<label for="cod" class="font-medium inline-flex items-center justify-between w-full h-full p-4 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" onclick="hiddenForm()">
+						<p class="mx-auto">COD</p>
+					</label>
+				</li>
+				<li>
+					<input type="radio" id="visa" name="payment" value="visa" class="hidden peer" required checked>
+					<label for="visa" class="inline-flex items-center justify-between w-full h-full p-4 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" onclick="showForm()">
+						<img alt="master" src="./images/visa.png" class="mx-auto">
+					</label>
+				</li>
+				<li>
+					<input type="radio" id="master" name="payment" value="master" class="hidden peer" required>
+					<label for="master" class="inline-flex items-center justify-between w-full h-full p-4 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" onclick="showForm()">
+						<img alt="master" src="./images/master-card.png" class="mx-auto">
+					</label>
+				</li>
+			</ul>
+			<!-- credit -->
+			<!-- component -->
+			<div class="flex justify-center items-center transition-all duration-500" id = card>
 			<div class="flex flex-col gap-8 md:flex-row">
 				<div
 					class="h-56 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110">
@@ -210,40 +223,74 @@
 				</div>
 			</div>
 		</div>
-		<!-- form -->
-		<div class="w-full max-w-lg mt-8">
-			<div class=" rounded-lg">
-				<form action="confirm?status=true" method="post">
-					<div class="">
-						<div class="">
-							<label for="card-number"
-								class="block text-sm font-medium text-gray-700 mb-2">${cardNumber }</label>
-							<input type="text" name="card-number" id="card-number"
-								placeholder="0000 0000 0000 0000"
-								class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
-						</div>
-						<div class="grid grid-cols-2 gap-4 mt-4">
+			<!-- form -->
+			<div class="w-full max-w-lg mt-8">
+				<div class=" rounded-lg">
+						<div class="transition-all duration-500" id="form">
 							<div class="">
-								<label for="expiration-date"
-									class="block text-sm font-medium text-gray-700 mb-2">${expirationDate }</label>
-								<input type="text" name="expiration-date" id="expiration-date"
-									placeholder="MM / YY"
+								<label for="card-number"
+									class="block text-sm font-medium text-gray-700 mb-2">${cardNumber }</label>
+								<input type="text" name="card-number" id="card-number"
+									placeholder="0000 0000 0000 0000"
+									   required
+
 									class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
 							</div>
-							<div class="">
-								<label for="cvv"
-									class="block text-sm font-medium text-gray-700 mb-2">CVV</label>
-								<input type="text" name="cvv" id="cvv" placeholder="000"
-									class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+							<div class="grid grid-cols-2 gap-4 mt-4">
+								<div class="">
+									<label for="expiration-date"
+										class="block text-sm font-medium text-gray-700 mb-2">${expirationDate }</label>
+									<input type="text" name="expiration-date" id="expiration-date"
+										placeholder="MM / YY"
+										required
+										class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+								</div>
+								<div class="">
+									<label for="cvv"
+										class="block text-sm font-medium text-gray-700 mb-2">CVV</label>
+									<input type="text" name="cvv" id="cvv" placeholder="000"
+										required
+										class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="mt-8">
-						<button type="submit"
-							class="bg-[#3B71FE] px-4 hover:bg-blue-600 text-white font-medium py-3 rounded-lg focus:outline-none">${confirmAndReverse }</button>
-					</div>
-				</form>
+						<div class="mt-8">
+							<button type="submit"
+								class="bg-[#3B71FE] px-4 hover:bg-blue-600 text-white font-medium py-3 rounded-lg focus:outline-none">${confirmAndReverse }</button>
+						</div>
+
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
+<script>
+	// Function to handle COD selection
+	function hiddenForm() {
+		const card = document.getElementById("card");
+		const form = document.getElementById("form");
+		card.classList.add("hidden")
+		form.classList.add("hidden")
+		const cardNumber = document.getElementById("card-number");
+		const expirationDate = document.getElementById("expiration-date");
+		const cvv = document.getElementById("cvv");
+		cardNumber.removeAttribute('required');
+		expirationDate.removeAttribute('required');
+		cvv.removeAttribute('required');
+	}
+
+		// Function to handle Visa selection
+	function showForm() {
+		const card = document.getElementById("card");
+		const form = document.getElementById("form");
+		card.classList.remove("hidden")
+		form.classList.remove("hidden")
+		const cardNumber = document.getElementById("card-number");
+		const expirationDate = document.getElementById("expiration-date");
+		const cvv = document.getElementById("cvv");
+		cardNumber.setAttribute('required', 'required');
+		expirationDate.setAttribute('required', 'required');
+		cvv.setAttribute('required', 'required');
+	}
+
+</script>

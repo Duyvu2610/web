@@ -36,11 +36,11 @@ public class ConfirmRepass extends HttpServlet {
         getServletContext().setAttribute("repass", "");
         if (verify.equals(code)) {
             userService.changePass(email, code);
-            getServletContext().setAttribute("isChangeSuccess", true);
+            request.setAttribute("isChangeSuccess", true);
         }else {
-            getServletContext().setAttribute("isChangeSuccess", false);
+           request.setAttribute("isChangeSuccess", false);
         }
-        response.sendRedirect("login");
+        request.getRequestDispatcher("./jsp/login.jsp").forward(request, response);
     }
 
 

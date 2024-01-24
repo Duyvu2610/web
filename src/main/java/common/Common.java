@@ -2,8 +2,12 @@ package common;
 
 import java.security.SecureRandom;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 
 public class Common {
@@ -123,6 +127,21 @@ public class Common {
 
 		context.setAttribute("discount", lang.getString("discount"));
 
+		context.setAttribute("profile", lang.getString("profile"));
+		context.setAttribute("dob", lang.getString("dob"));
+		context.setAttribute("save", lang.getString("save"));
+		context.setAttribute("name", lang.getString("name"));
+		context.setAttribute("hello", lang.getString("hello"));
+		context.setAttribute("phone", lang.getString("phone"));
+		context.setAttribute("address", lang.getString("address"));
+		context.setAttribute("reason3", lang.getString("reason3"));
+		context.setAttribute("reason2", lang.getString("reason2"));
+		context.setAttribute("reason1", lang.getString("reason1"));
+		context.setAttribute("why3", lang.getString("why3"));
+		context.setAttribute("why2", lang.getString("why2"));
+		context.setAttribute("why1", lang.getString("why1"));
+		context.setAttribute("title", lang.getString("title"));
+
 	}
 	public static String randomPassword() {
 		SecureRandom secureRandom = new SecureRandom();
@@ -135,5 +154,38 @@ public class Common {
 		}
 
 		return password.toString();
+	}
+
+	public static boolean sendVerificationEmail(final String email,String subject, String messageStr) {
+		boolean success;
+		final String username = "duyvu2612003@gmail.com";
+		final String password = "srqm gjkj qymi przn";
+
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", "smtp.gmail.com");
+		prop.put("mail.smtp.port", "587");
+		prop.put("mail.smtp.auth", "true");
+		prop.put("mail.smtp.starttls.enable", "true"); // TLS
+
+		Session session = Session.getInstance(prop, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+			message.setSubject(subject);
+			message.setText(messageStr);
+			Transport.send(message);
+
+			success = true;
+		} catch (MessagingException e) {
+			success = false;
+			e.printStackTrace();
+		}
+		return success;
 	}
 }

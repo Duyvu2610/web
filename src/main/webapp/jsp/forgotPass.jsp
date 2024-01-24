@@ -3,8 +3,6 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-<input type="hidden" id="status"
-	   value="<%=request.getAttribute("repass")%>">
 <div
 	class="fixed z-[100000] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-screen justify-center items-center hidden"
 	id="loginModel">

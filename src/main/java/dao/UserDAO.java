@@ -93,7 +93,7 @@ public class UserDAO extends DBConnection{
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             userDetail = new UserDetail(rs.getString("email"), rs.getString("name"),
-			rs.getString("address"), rs.getString("phone"), rs.getDate("dob"), rs.getString("gender"));
+			rs.getString("address"), rs.getString("phone"), rs.getDate("dob"), rs.getString("gender"), rs.getString("image"));
         }
         rs.close();
         ps.close();
@@ -125,12 +125,30 @@ public class UserDAO extends DBConnection{
 		return false;
 	}
 
+	public boolean updateUserDetailImg(String path, String email) {
+		String query = "UPDATE User_Detail SET  image = ? WHERE email = ?";
+		try {
+			Connection cn = super.getConnection();
+			PreparedStatement ps = cn.prepareStatement(query);
+			ps.setString(1, path);
+			ps.setString(2, email);
+			int updated = ps.executeUpdate();
+			ps.close();
+			cn.close();
+			return updated > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public boolean createUserDetail(User user) {
-		String query = "insert into user_detail(email) values(?)";
+		String query = "insert into user_detail(email, image) values(?, ?)";
 		try {
 			Connection cn = super.getConnection();
 			PreparedStatement ps = cn.prepareStatement(query);
 			ps.setString(1, user.email());
+			ps.setString(2, "./icons/user.svg");
 			ps.executeUpdate();
 			ps.close();
 			cn.close();

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import database.DBConnection;
 import models.User;
+import models.UserDetail;
 import services.UserService;
 import services.UserService;
 
@@ -40,7 +41,6 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.getRequestDispatcher("./jsp/login.jsp").forward(request, response);
 	}
 
@@ -53,8 +53,10 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (userService.login(request.getParameter("email"), request.getParameter("pw"))) {
 			User user = userService.getUser(request.getParameter("email"));
+			UserDetail ud = userService.getUserDetail(request.getParameter("email"));
 			session.setAttribute("username", user);
-			session.setAttribute("userDetail", userService.getUserDetail(request.getParameter("email")));
+			session.setAttribute("userDetail", ud);
+
 			request.setAttribute("status", "true");
 			if (user.roleId() > 1) {
 				session.setAttribute("airlineId", user.roleId());

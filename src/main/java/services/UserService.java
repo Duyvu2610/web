@@ -11,7 +11,7 @@ public class UserService{
 
 	public boolean create(User user) {
 		boolean isSuccess = userDao.createUser(user);
-		userDao.createUserDetail(user);
+		if (isSuccess) 	userDao.createUserDetail(user);
 		return isSuccess;
 		
 	}
@@ -36,6 +36,14 @@ public class UserService{
 
 	public boolean updateUserDetail(UserDetail userDetail) {
 		return userDao.updateUserDetail(userDetail);
+	}
+
+	public boolean updateImage(String path, String email) {
+		return userDao.updateUserDetailImg(path, email);
+	}
+
+	public boolean existUser(String email) {
+		return userDao.getUser(email) != null;
 	}
 
 }

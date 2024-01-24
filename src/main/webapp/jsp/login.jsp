@@ -128,7 +128,7 @@ opacity: 0;border-radius: 50%;
 </head>
 <body>
 	<input type="hidden" id="status"
-		value="<%=request.getAttribute("status")%>">
+		value="${status}">
 	<input type="hidden" id="repass"
 		   value="${repass}">
 	<input type="hidden" id="isChangeSuccess"
@@ -150,7 +150,7 @@ opacity: 0;border-radius: 50%;
 					src="./images/logo.svg" alt="aji"
 					class="object-cover mx-auto w-8 h-8 w-10 h-10">
 					<p class="text-xl ml-3">
-						aji<strong>mon</strong>
+						<strong>VTT</strong>Trip
 					</p> </a> <img src="./images/airplane.webp"
 					class="h-96 absolute -right-8 mr-5">
 				<div class="w-full  max-w-md z-10">
@@ -261,7 +261,6 @@ opacity: 0;border-radius: 50%;
 		console.log(status);
 		setTimeout(() => {
 			if (status === "failed") {
-				console.log('huhu')
 					Swal.fire({
 					    title: 'Sign in failed',
 					    icon: 'error',

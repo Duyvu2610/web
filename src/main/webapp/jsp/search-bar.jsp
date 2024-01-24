@@ -67,8 +67,6 @@
 			</div>
 		</div>
 	</div>
-	<c:choose>
-		<c:when test="${not empty sessionScope.username}">
 			<button
 				class=" py-3 text-center rounded-lg bg-[#ff5e1f]
 				 text-[#FFFFFF] text-font-bold text-xl md:px-4 md:mb-0 block"
@@ -81,25 +79,6 @@
 						stroke-linejoin="round"></path>
 				</svg>
 			</button>
-		</c:when>
-		<c:otherwise>
-			<button data-tooltip-target="tooltip-no-arrow" type="button"
-				class=" py-3 text-center rounded-lg opacity-70
-				 text-[#FFFFFF] text-font-bold text-xl  md:mb-0 block cursor-not-allowed bg-[#ff5e1f] md:px-4"
-				disabled>
-				<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-					xmlns="http://www.w3.org/2000/svg" data-id="IcSystemSearch">
-					<path
-						d="M15 15L20.5 20.5M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
-						stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"
-						stroke-linejoin="round"></path>
-				</svg>
-			</button>
-			<div id="tooltip-no-arrow" role="tooltip"
-				class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-				Please signin to search!</div>
-		</c:otherwise>
-	</c:choose>
 
 </form>
 

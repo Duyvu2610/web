@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class Confirm
- */
 @WebServlet("/confirm")
 public class Confirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,30 +30,29 @@ public class Confirm extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 				request.getRequestDispatcher("./jsp/confirm.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sess = request.getSession();
 		Flight flight = (Flight) sess.getAttribute("flight");
 		User user = (User) sess.getAttribute("username");
-		FlightBooking fl = new FlightBooking(0, flight.id(), new Date(System.currentTimeMillis()), "", user.email(),
-				1, false);
+		String payment = request.getParameter("payment");
+		int payId = payment.equals("cod") ? 3 : payment.equals("master") ? 1 : 2;
+		Date now = new Date(System.currentTimeMillis());
+		FlightBooking fl = new FlightBooking(0, flight.id(), now, "", user.email(),
+				payId, !payment.equals("cod"));
         try {
-            if (service.insertFlightBooking(flight.airline().standFor(), fl)) sess.setAttribute("flightBooking", fl);
+			String seat = service.insertFlightBooking(flight.airline().standFor(), fl);
+			sess.setAttribute("paymentMethod", payment);
+            sess.setAttribute("flightbooking", seat);
+			sess.setAttribute("bookAt", now.toString());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         doGet(request, response);
 	}
-	// tạo cho tôi 1 hàm để tạo số ghế bằng cách lấy số ghế cuối cùng trong bảng booking
 }

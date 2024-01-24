@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -145,51 +147,26 @@
 					<label for="fname"
 						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">${firstName }</label> <input type="text" id="fname"
 						class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-						placeholder="Vu" required>
+						value="${userDetail == null ? "":userDetail.name()}" readonly >
 				</div>
 				<div class="mb-6">
 					<label for="lname"
 						class="block mb-2 text-sm font-medium text-gray-900">${lastName }</label> <input type="text" id="lname"
 						class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-						placeholder="Nguyen Duy" required>
+						value="${userDetail == null ? "":userDetail.address()}" readonly>
 				</div>
 			</div>
 			<div class="md:flex md:gap-8">
-				<div class="mb-6">
-					<label for="countries"
-						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">${gender }</label>
-					<select id="countries"
-						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:w-48">
-						<option selected>Male</option>
-						<option value="Female">Female</option>
-					</select>
-				</div>
-				<div class="mb-6">
-					<label for="birthday"
-						class="block mb-2 text-sm font-medium text-gray-900">${birthDay }</label>
+<%--				<div class="mb-6">--%>
+<%--					<label for="countries"--%>
+<%--						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">${gender }</label>--%>
+<%--					<select id="countries"--%>
+<%--						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 md:w-48">--%>
+<%--						<option value="nu">${userDetail == null ? "":userDetail().gender()}</option>--%>
+<%--					</select>--%>
+<%--				</div>--%>
 
-					<div class="relative max-w-sm">
-						<div
-							class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-							<svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
-								aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor" viewBox="0 0 20 20">
-        <path
-									d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-      </svg>
-						</div>
-						<input datepicker datepicker-autohide
-							datepicker-format="dd/mm/yyyy" type="text"
-							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							placeholder="Select date">
-					</div>
-
-				</div>
 			</div>
-
-
-
-
 
 		</div>
 
@@ -200,23 +177,29 @@
 				<label for="email"
 					class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">${enterAnEmail }</label> <input type="email" id="email"
 					class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-					placeholder="abc@gmail.com" required>
-			</div>
-			<div class="mb-6">
-				<label for="address"
-					class="block mb-2 text-sm font-medium text-gray-900">${enterAddressName }</label> <input type="text" id="address"
-					class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-					placeholder="Nguyen Duy" required>
+					value="${userDetail == null ? "":userDetail.userEmail()}" readonly>
 			</div>
 
 		</div>
 		<form action="confirm">
-			<button type="submit"
-			class="py-2 px-4 flex justify-center items-center my-6 bg-[#3B71FE] text-white md:w-[140px] w-full transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-xl max-w-md">
-			Continue</button>
+			<c:choose>
+				<c:when test="${not empty userDetail.name() && not empty userDetail.address()}">
+					<button type="submit"
+							class="py-2 px-4 flex justify-center items-center my-6 bg-[#3B71FE] text-white md:w-[140px] w-full transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-xl max-w-md">
+						Continue</button>
+				</c:when>
+				<c:otherwise>
+					<button type="submit"
+							data-tooltip-target="tooltip-no-arrow"
+							disabled
+							class="py-2 px-4 flex justify-center items-center my-6 bg-gray-500 text-white md:w-[140px] w-full transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-xl max-w-md">
+						Continue</button>
+					<div id="tooltip-no-arrow" role="tooltip"
+						 class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+						Please signin to search!</div>
+				</c:otherwise>
+			</c:choose>
 		</form>
-
-
 
 	</div>
 

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import common.Common;
 import models.User;
 import services.UserService;
 import services.UserService;
@@ -42,21 +43,23 @@ public class RegisterController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String email = request.getParameter("email");
-		String pw = request.getParameter("pw");
-		String confirmPassword = request.getParameter("confirm-password");
-		User user = new User(email, pw, 2);
+		String password = Common.randomPassword();
+		String message = "Your pass word is: " + password;
+		String subject = "Create new account";
+		User user = new User(email, password, 2);
 		RequestDispatcher di = null;
 		di = request.getRequestDispatcher("./jsp/register.jsp");
-		if (userService.create(user) && pw.equals(confirmPassword)) {
-			request.setAttribute("status", "success");
-			
+		if (userService.existUser(email)) {
+			request.setAttribute("createUser", "failed");
 		}else {
-			request.setAttribute("status", "failed");
-	        
+			userService.create(user);
+			Common.sendVerificationEmail(email, subject, message);
+			request.setAttribute("createUser", "success");
 		}
+
 		di.forward(request, response);
-		
 	}
 
 }

@@ -73,8 +73,8 @@
 			<div class="relative flex">
 				<c:choose>
 					<c:when test="${not empty sessionScope.username}">
-						<img alt="user-image" src="./images/profile.svg"
-							class="md:w-8 md:h-8 md:mr-2 user">
+						<img alt="user-image" src="${userDetail.imagePath()}"
+							class="md:w-8 md:h-8 md:mr-2 user rounded-full">
 						<img alt="dropdown" src="./icons/dropdown.svg" id="dropdown"
 							class="transition-all duration-500 hidden md:block user ">
 						<ul

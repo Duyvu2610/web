@@ -45,18 +45,29 @@
             </li>
           </ol>
       </nav>
-      <div class="flex gap-8">
+
+        <form class="flex gap-8" action="profile" method = "post" id = "formUser" enctype="multipart/form-data">
         <div class="w-[25%]">
           <div class="">
             <div class="bg-white shadow-xl rounded-lg py-3">
                 <div class="photo-wrapper p-2">
-                    <img class="w-32 h-32 rounded-full mx-auto" src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="John Doe">
+                    <img class="w-32 h-32 rounded-full mx-auto" src="${userDetail.imagePath()}" alt="John Doe">
+                    <label class="block mx-auto">
+                        <span class="sr-only">Choose profile photo</span>
+                        <input type="file" class="block w-full text-sm text-slate-500
+                            file:mr-8 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-violet-50 file:text-violet-700
+                            hover:file:bg-violet-100"
+                            name="avatar"
+                               id="avatar"
+                               required
+                        />
+                    </label>
                 </div>
                 <div class="p-2">
                     <h3 class="text-center text-xl text-gray-900 font-medium leading-8">${userDetail == null ? "":userDetail.name()}</h3>
-                    <div class="text-center text-gray-400 text-xs font-semibold">
-                        <p>Web Developer</p>
-                    </div>
                     <table class="text-xs my-3">
                         <tbody><tr>
                             <td class="px-2 py-2 text-gray-500 font-semibold">Address</td>
@@ -80,7 +91,7 @@
             </div>
         </div>
         </div>
-        <form class="w-[70%]" action="profile" method = "post">
+        <div class="w-[70%]" >
             <h2 class="font-bold text-3xl pb-8 border-b">My Profile</h2>
             <div class="bg-white rounded-lg shadow px-4 py-6 my-8">
               <p>Get the best out of  TripGuide by adding the remaining details!</p>
@@ -104,7 +115,7 @@
             </div>
             <div class="flex justify-between items-center my-4">
                 <p class="text-xl font-semibold">Hi, I'm ${userDetail == null ? "":userDetail.name()}</p>
-                <button class="rounded-full px-4 py-2 border hover:bg-gray-200">Save My Data</button>
+                <button class="rounded-full px-4 py-2 border hover:bg-gray-200" type="submit" id="submitButton">Save My Data</button>
             </div>
             <div class="flex gap-8">
                 <div class="w-[50%]">
@@ -144,7 +155,7 @@
                         <div class="flex flex-col gap-2 relative">
                             <label for="dob" class="text-sm font-medium text-[#6F717E]">Date Of Birth</label>
                             <input type="date" name="dob" id="dob" class="text-[#3B3E44] text-sm border border-gray-300 rounded-lg p-2 py-3 bg-transparent pl-10"
-                                value="${profileDob}" placeholder="dd-mm-yyyy"/>
+                                value="${userDetail.dob()}" placeholder="dd-mm-yyyy"/>
                             <img src="./icons/birth.svg" alt="home icon" class="w-5 h-5 absolute top-[42px] left-[13px]">
                         </div>
                     </div>
@@ -160,8 +171,8 @@
                     </div>
                 </div>
             </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
     <c:import url="footer.jsp" />
 </body>
@@ -185,5 +196,11 @@
             })
         }
     }, 500);
+    document.getElementById('avatar').addEventListener('change', function () {
+        document.getElementById('imgForm').submit();
+    });
+    document.getElementById('submitButton').addEventListener('click', function () {
+        document.getElementById('formUser').submit();
+    });
 </script>
 </html>

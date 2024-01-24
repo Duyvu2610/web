@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,9 +92,9 @@
         <div class="section">
             <div class="info">
                 <p class="font-bold text-xl text-black">${customer_info}</p>
-                <p>${email}: <span>tranthuyminhthu0611@gmail.com</span></p>
-                <p>${booking_date}: <span>12/12/12</span></p>
-                <p>${payment}: <span>cod</span></p>
+                <p>${email}: <span>${username.email()}</span></p>
+                <p>${booking_date}: <span>${bookAt}</span></p>
+                <p>${payment}: <span>${paymentMethod}</span></p>
             </div>
         </div>
         <table class="receipt-table text-center">
@@ -102,27 +102,27 @@
                 <!-- Ticket Price -->
                 <tr>
                     <td><strong>${price}: </strong></td>
-                    <td>200,000 VND</td>
+                    <td><fmt:formatNumber value="${(flight.price() * exchangeRate)}" /> ${currency }</td>
                 </tr>
                 <!-- Tax -->
                 <tr>
                     <td><strong>${tax}: </strong></td>
-                    <td>300,000 VND</td>
+                    <td><fmt:formatNumber value="${(flight.price() * exchangeRate) * 0.1}" /> ${currency }</td>
                 </tr>
                 <!-- Service Fee -->
                 <tr>
                     <td><strong>${serviceFee}: </strong></td>
-                    <td>400,000 VND</td>
+                    <td><fmt:formatNumber value="${(flight.price() * exchangeRate) * 0.05}" /> ${currency }</td>
                 </tr>
                 <!-- Discount -->
                 <tr>
                     <td><strong>${discount}: </strong></td>
-                    <td>600,000 VND</td>
+                    <td><fmt:formatNumber value="${(flight.price() * exchangeRate) * 0.01}" /> ${currency }</td>
                 </tr>
                 <!-- Grand Total -->
                 <tr class="total-row">
                     <td><strong>${total}: </strong></td>
-                    <td>700,000 VND</td>
+                    <td><fmt:formatNumber value="${(flight.price() * exchangeRate) * 1.14}" /> ${currency }</td>
                 </tr>
             </tbody>
         </table>

@@ -243,7 +243,7 @@
 								</div>
 								<div class="flex flex-col">
 									<span class="">Seat</span>
-									<div class="font-semibold">${flightBooking.seatNumber()}</div>
+									<div class="font-semibold">${flightbooking}</div>
 
 								</div>
 							</div>

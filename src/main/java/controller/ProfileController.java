@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -8,19 +9,20 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import models.User;
 import models.UserDetail;
 import services.UserService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Servlet implementation class Confirm
  */
+@MultipartConfig
 @WebServlet("/profile")
 public class ProfileController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -30,7 +32,6 @@ public class ProfileController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession sess = request.getSession();
         request.getRequestDispatcher("./jsp/profile.jsp").forward(request, response);
     }
 
@@ -46,26 +47,46 @@ public class ProfileController extends HttpServlet {
         String dob = request.getParameter("dob");
         String gender = request.getParameter("gender");
 
-        UserDetail userDetail = new UserDetail(user.email(), name, address, phone, toDate(dob), gender);
-        Boolean status = service.updateUserDetail(userDetail);
-        sess.setAttribute("updateUser", status);
-        sess.setAttribute("userDetail", userDetail);
-        sess.setAttribute("profileDob", toString(userDetail.dob()));
-        response.sendRedirect("profile");
-    }
+        System.out.println(name + "jiji");
+        System.out.println(address + "jiji");
+        System.out.println(phone + "jiji");
+        System.out.println(dob + "jiji");
+        System.out.println(gender + "jiji");
 
-    private static Date toDate(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        Instant instant = localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
-        return Date.from(instant);
+
+        UserDetail userDetail = null;
+        try {
+            userDetail = new UserDetail(user.email(), name, address, phone, toDate(dob), gender, "");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        Boolean status = service.updateUserDetail(userDetail);
+        request.setAttribute("updateUser", status);
+        sess.setAttribute("userDetail", userDetail);
+        sess.setAttribute("profileDob", "2017-11-11");
+
+        // upload file
+        Part part = request.getPart("avatar");
+        String fileName = Path.of(part.getSubmittedFileName()).getFileName().toString();
+        String folder = "D:\\data\\BookTickets\\src\\main\\webapp\\images";
+        String pathFile = folder + "\\" + fileName;
+        String showImgPath = "./images/" + fileName;
+        System.out.println(showImgPath + "hihi");
+        part.write(pathFile);
+
+        service.updateImage(showImgPath, user.email());
+        sess.setAttribute("userDetail", service.getUserDetail(user.email()));
+        request.getRequestDispatcher("./jsp/profile.jsp").forward(request, response);
     }
 
     private static String toString(Date date) {
-        Instant instant = date.toInstant();
-        LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return localDate.format(formatter);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
+    }
+
+    private static Date toDate(String dateString) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.parse(dateString);
     }
 
 }

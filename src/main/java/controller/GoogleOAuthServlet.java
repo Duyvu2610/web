@@ -58,10 +58,11 @@ public class GoogleOAuthServlet extends HttpServlet {
                
                 Userinfo userInfo = oauth2.userinfo().get().execute();
                 if (userService.getUser(userInfo.getEmail()) == null) {
-                	User u = new User(userInfo.getEmail(), Common.randomPassword(), 2);
+                	User u = new User(userInfo.getEmail(), Common.randomPassword(), 0);
                 	userService.create(u);
                 }
                 session.setAttribute("username", userService.getUser(userInfo.getEmail()));
+                session.setAttribute("userDetail", userService.getUserDetail(userInfo.getEmail()));
     			response.sendRedirect("/BookTickets_war_exploded");
                 
 //
@@ -73,7 +74,7 @@ public class GoogleOAuthServlet extends HttpServlet {
 //                response.sendRedirect("/BookTickets");
             } catch (Exception e) {  
             	response.sendRedirect("login");
-                e.printStackTrace(); // Hoặc xử lý ngoại lệ một cách hợp lý  
+                e.printStackTrace();
             }  
         } else {  
             // Người dùng không đăng nhập được với Google  

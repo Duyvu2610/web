@@ -126,10 +126,9 @@
 </style>
 </head>
 <body>
-
 	<!-- component -->
-	<input type="hidden" id="status"
-		value="<%=request.getAttribute("status")%>">
+	<input type="hidden" id="createUser"
+		value="${createUser}">
 	<div class="relative min-h-screen flex ">
 		<div
 			class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
@@ -174,13 +173,25 @@
 						<h2 class="mt-6 text-3xl font-bold text-gray-900">${signup }</h2>
 					</div>
 					<div class="flex flex-row justify-center items-center space-x-3">
-						<a href=""
-							class="w-11 h-11 items-center justify-center inline-flex rounded-2xl
-							 font-semibold  bg-[#316BFF] hover:shadow-lg cursor-pointer transition 
-							 ease-in duration-300 flex-1 text-white"><img
-							class="w-4 h-4 mr-2"
-							src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xNS45OTcgMy45ODVoMi4xOTF2LTMuODE2Yy0uMzc4LS4wNTItMS42NzgtLjE2OS0zLjE5Mi0uMTY5LTMuMTU5IDAtNS4zMjMgMS45ODctNS4zMjMgNS42Mzl2My4zNjFoLTMuNDg2djQuMjY2aDMuNDg2djEwLjczNGg0LjI3NHYtMTAuNzMzaDMuMzQ1bC41MzEtNC4yNjZoLTMuODc3di0yLjkzOWMuMDAxLTEuMjMzLjMzMy0yLjA3NyAyLjA1MS0yLjA3N3oiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9zdmc+">
-							<p>${signFb }</p> </a>
+						<a
+								href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080${pageContext.servletContext.contextPath}/oauth2callback&response_type=code&client_id=251807274105-g8c3hjtmil4smff6lvga0s1bejqjabdn.apps.googleusercontent.com&approval_prompt=force&access_type=online"
+								class="w-11 h-11 items-center justify-center inline-flex rounded-2xl
+							 font-semibold hover:shadow-lg cursor-pointer transition
+							 ease-in duration-300 flex-1  border">
+							<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+								 viewBox="0 0 48 48" class="w-4 h-4 mr-2">
+								<g>
+									<path fill="#EA4335"
+										  d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+									<path fill="#4285F4"
+										  d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+									<path fill="#FBBC05"
+										  d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+									<path fill="#34A853"
+										  d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+									<path fill="none" d="M0 0h48v48H0z"></path></g></svg>
+							<p>${signFb }</p>
+						</a>
 					</div>
 					<div class="flex items-center justify-center space-x-2">
 						<span class="h-px w-16 bg-gray-200"></span> <span
@@ -203,35 +214,9 @@
 								required pattern=".*[a-zA-Z]+.*"
 								name="email" />
 								<span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-    Please enter a valid email address
-  </span>
+    								Please enter a valid email address
+  								</span>
 							</label> 
-								
-						</div>
-						<div>
-							<label for="pw"
-								class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">${password } <span class = "text-red-700 font-bold">*</span></label>
-							<input id = "pw" type="password" placeholder="************"
-								class="mt-1 block w-full px-3 py-2  border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-	      focus:outline-none focus:border-[#316BFF] focus:ring-1 focus:ring-[#316BFF] bg-gray-50 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer
-	    "
-								name="pw" required pattern=".{4,}" />
-								<span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-    Password least than 4 character
-  </span>
-						</div>
-						<div>
-							<label for="confirm-password"
-
-								class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">${confirmPass } <span class = "text-red-700 font-bold">*</span></label> <input type="password" placeholder="************"
-								class="mt-1 block w-full px-3 py-2  border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-	      focus:outline-none focus:border-[#316BFF] focus:ring-1 focus:ring-[#316BFF] bg-gray-50 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer
-	    "
-	    
-								name="confirm-password" required pattern=".{4,}"/>
-								<span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
-    Password least than 4 character
-  </span>
 								
 						</div>
 
@@ -251,11 +236,10 @@
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script type="text/javascript">
-		const status = document.getElementById("status").value;
+		const status = document.getElementById("createUser").value;
 		console.log(status);
 		setTimeout(() => {
 			if (status == "success") {
-				
 					Swal.fire({
 					    title: 'Sign up success',
 					    icon: 'success',
