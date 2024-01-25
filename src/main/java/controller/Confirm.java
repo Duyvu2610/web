@@ -34,7 +34,7 @@ public class Confirm extends HttpServlet {
 		// TODO Auto-generated method stub
 				request.getRequestDispatcher("./jsp/confirm.jsp").forward(request, response);
 	}
-
+// thanh toan
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sess = request.getSession();
 		Flight flight = (Flight) sess.getAttribute("flight");

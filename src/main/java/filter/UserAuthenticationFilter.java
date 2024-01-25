@@ -39,6 +39,7 @@ public class UserAuthenticationFilter implements Filter {
                     requestURI.contains("google") ||
                     requestURI.contains("oauth2callback") ||
                     requestURI.contains("RegisterServlet") ||
+                    requestURI.contains("flights") ||
                     requestURI.equalsIgnoreCase("http://localhost:8080" + httpRequest.getContextPath() + "/")
                 ) {
                     chain.doFilter(request, response);

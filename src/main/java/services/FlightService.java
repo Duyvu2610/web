@@ -47,6 +47,27 @@ public class FlightService {
 		return res;
 	}
 
+	public List<Flight> sort(List<Flight> list, String sortBy) {
+		switch (sortBy) {
+			case "departure":
+				list.sort(Comparator.comparing(Flight::departureDate));
+				break;
+			case "arrival":
+				list.sort(Comparator.comparing(Flight::arrivalDate));
+				break;
+			case "price":
+				list.sort(Comparator.comparing(Flight::price));
+				break;
+			case "duration":
+				list.sort(Comparator.comparingLong(Flight::travelHour).thenComparingLong(Flight::travelHour));
+				break;
+			default:
+				// Invalid sortBy value, do nothing
+				break;
+		}
+		return list;
+	}
+
 	public Flight getByFlightCode(String flightCode){
 		return dao.selectByFlightCode(flightCode);
 	}

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +37,6 @@ public class FlightList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession sess = request.getSession();
-		String filter = request.getParameter("filter");
 		String id = request.getParameter("id");
 		// khi click vaof chuyen bay cu the
 		if (id != null) {
@@ -54,12 +54,21 @@ public class FlightList extends HttpServlet {
 			sess.setAttribute("departureCountry", countryService.getById(departureCity.countryId()));
 			sess.setAttribute("destinationCOuntry", countryService.getById(destinationCity.countryId()));
 		}
+		// neu bam filter
+		String sortBy = request.getParameter("sortBy");
+		if (sortBy != null) {
+			// lay ds hien tai
+			List<Flight> beforeSort = (List<Flight>) sess.getAttribute("flights");
+			// sort
+			List<Flight> list = flightService.sort(beforeSort, sortBy);
+			// set danh sach moi vao session
+			sess.setAttribute("flights", list);
+		}
 
-		sess.setAttribute("flights", flightService.getAll());
 		sess.setAttribute("stopovers", flightService.getAllNumStop());
 		request.getRequestDispatcher("./jsp/flight_list.jsp").forward(request, response);
 	}
-
+// list f
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession sess = request.getSession();

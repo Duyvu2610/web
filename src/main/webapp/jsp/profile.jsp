@@ -63,7 +63,6 @@
                             name="avatar"
                                id="avatar"
                         />
-                        <input type="submit" value="Upload" />
                     </label>
                 </div>
                 <div class="p-2">

@@ -25,7 +25,8 @@
         <div class="bg-[#03121a] opacity-50 w-full h-full"></div>
         <div class="bg-white rounded-xl border shadow p-4 sm:p-8 mx-4 w-[700px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <button onclick="hideEditModel()" class="flex items-center w-8 h-8 rounded-full bg-gray-400 justify-center  my-2 ml-auto hover:opacity-100 opacity-50">
-                <img src="./icons/close.svg" alt="close" class="block">
+<%--                <img src="./icons/close.svg" alt="close" class="block">--%>
+                X
             </button>
             <form method="post" action="flight?update=true">
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -81,7 +82,8 @@
         <div class="bg-[#03121a] opacity-50 w-full h-full"></div>
         <div class="bg-white rounded-xl border shadow p-4 sm:p-8 mx-4 w-[700px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <button onclick="hideLoginModel()" class="flex items-center w-8 h-8 rounded-full bg-gray-400 justify-center  my-2 ml-auto hover:opacity-100 opacity-50">
-                <img src="./icons/close.svg" alt="close" class="block">
+<%--                <img src="./icons/close.svg" alt="close" class="block">--%>
+                X
             </button>
             <form method="post" action="flight">
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -144,7 +146,7 @@
         </div>
         <button class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none flex ml-auto items-center gap-2 my-4
          focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2" onclick="showLoginModel()">
-            <img src="./icons/plus.svg" alt="icon">
+<%--            <img src="./icons/plus.svg" alt="icon">--%>
             Add Flight
         </button>
         <div class="flex gap-8 justify-between">
@@ -177,7 +179,7 @@
             </div>
             <div class="border w-full p-6 shadow-xl hover:scale-110 transition-all duration-500 rounded-lg">
                 <div class="w-12 h-12 rounded-full bg-[#eff2f7] flex justify-center items-center mb-3">
-                    <img src="./icons/eye.svg" alt="eye">
+                    <img src="./icons/airline.svg" alt="eye">
                 </div>
                 <p class="font-bold text-2xl">${totalPassenger}</p>
                 <div class="flex justify-between">

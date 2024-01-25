@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Title</title>
@@ -51,14 +52,6 @@
                 </th>
                 <th
                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    departure time
-                </th>
-                <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    arrival time
-                </th>
-                <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     purchase time
                 </th>
                 <th
@@ -76,29 +69,17 @@
                 <tr class="bg-white hover:bg-gray-200 transition-all duration-300" >
                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0 w-10 h-10">
-                                <img class="w-full h-full rounded-full"
-                                     src=""
-                                     alt="" />
-                            </div>
                             <div class="ml-3">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    Vera Carpenter
+                                        ${booking.flightId()}
                                 </p>
                             </div>
                         </div>
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">Admin</p>
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">
-                            Jan 21, 2020
-                        </p>
-                    </td>
-                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                            Jan 21, 2020
+                            <fmt:formatDate var="formattedDate" value="${booking.bookingTime()}" pattern="dd/MM/yyyy-HH:mm" />${formattedDate}
+
                         </p>
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
